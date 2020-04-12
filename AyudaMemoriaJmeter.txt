@@ -1,0 +1,159 @@
+Jmeter: es una app creada en java. hay que chequear de que tengamos java instalado en la maquina.
+comando: java --version                 //nos devuelve la version de java. sino nos devuelve java..hay que instalar el jdk 8 y configurar las variables de entorno.
+
+-------------------------------------------------------------------------------------------------------------------
+Descargar j meter (el .zip file ) desde la web . El binary del la web: 
+https://jmeter.apache.org/download_jmeter.cgi . un zipearlo y abrir el archivo jmeter.bat
+
+-------------------------------------------------------------------------------------------------------------------
+dentro de la carpeta bin, abrir el archivo jmeter.bat
+-------------------------------------------------------------------------------------------------------------------
+Listeners: 
+
+-------------------------------------------------------------------------------------------------------------------
+listener view results tree: (consume mucho recurso asique no conviene usarlo cuando le pegamos con muchos usuarios)
+loadtime:  		es el tiempo en ms que tarda responder (load time o sample time)
+connect time:   es  el tiempo en ms que tarda el request en llegar al server
+latency:        es el tiempo que tarda el primer byte de respuesta del lado del server 
+size in bytes:
+sent in bytes:
+Headers size in bytes:
+Body size in bytes:
+Sample Count:
+Error Count:0
+-------------------------------------------------------------------------------------------------------------------
+Listener View results in table
+sample time (ms)= es el tiempo de respuesta del response, lo que tardó en devolver la response. (loadtime)
+Bytes           = es el size del request
+latency     (ms)= es el tiempo que tarda el primer byte de respuesta del server
+connect time(ms)= es el tiempo que tarda el request en conectar con el server
+
+-------------------------------------------------------------------------------------------------------------------
+Listener agregate report in table. los listeners consumen mucho recurso entonces no conviene usar muchos a la vez.sino deshabilitarlos
+samples :   es la cantidad de usuarios
+average :   es el promedio de todos los request en responder en milisegundos
+median  :   la menor mitad de los requests tardaron menos que ese tiempo, y la mayor mitad de requests  tardaron mas que es tiempo. en milisegundos
+90% line:   90% de los requests tardaron menos que ese tiempo en responder en milisegundos
+95% line:   95% de los requests tardaron menos que ese tiempo en responder en milisegundos
+99% line:   99% de los requests tardaron menos que ese tiempo en responder en milisegundos
+min: 	    es cuanto tardó el request mas rapido en responder
+throughput: es el numero de requests por segundo
+KB/sec:     son los kilobytes por segundo
+-------------------------------------------------------------------------------------------------------------------
+Listener graph results: ves en vivo el data, average,mediandeviation y throughput
+
+-------------------------------------------------------------------------------------------------------------------
+assertion: validatioin in the response.
+reponse assertion de response 201 y va a fallar. me lo muestra en el reporte (listener)
+duration assertion: en ms 
+size assertion: en bytes
+html assertion: validar que el response sea formato html
+xpath assertion:
+-------------------------------------------------------------------------------------------------------------------
+Save report: se puede guardar en xml csv. para csv hay 	 	 ir a configure y destildar el (xml)
+-------------------------------------------------------------------------------------------------------------------
+configuration elements: es 1 tool para hacer configuracion a los samplers. es para setear defaults o variables
+que van a poder ser usados por los thread.
+ejemplos:
+-http header manager:
+-user defined variables: podemos definir variables ej: base_url y valor.  para referenciarla hacer ${base_url}
+-http request defaults: puedo poner la url o el server aca y los requests en los samplers puede levantar de aca.
+-dns cache manager: 
+-http authorization manager: si tenemos userid and password, lo podemos setear aca.
+-http cockie manager: si queremos borrar cockies o specificar cookies.
+-http cache manager:
+-counter: puedo definir 1 contador (starting value: 1, increment 1, max value: 20)que vaya incrementando y despues referenciarlo
+-jdbc conectioin: es para setear la conexion a la base de datos que vaya a usar. mysql , postgre
+-ftp request defaults: es para setear la coonexion ftp
+-login config elemement:
+-random variable: podemos setear una variable random. ej: variableName: random1 minimum val: 1
+max value: 999999 . output format: 000000
+
+-----------------------------------------------------------------------------------------------------------------
+prueba con base de datos mysql (select):
+agregamos el config element : jdbc config element. hay q agregar el jar de la base q vayamos a usar y ponerlo en la carpeta lib de jmeter.
+ej: my-sql-conector-java-version.jar y restartear jmeter para que tome los cambios.
+agregar el config element de jdbc
+fatabase url:mysql://db4free.net:3306/automationdb   (automation db es el nombre de la base)
+jdbc diver class: com.mysql.jdbc.Driver
+username:test
+password: test1234
+agregar 1 jdbc request con : select * from student1  (si jmeter putea por las variables ponerle nombre de varial al config element del jdbc
+y al jdbc request.)
+-----------------------------------------------------------------------------------------------------------------
+prueba con base de datos postgre (insert):
+jdbc:postgresql://localhost:5432/Testing
+jdbc driver class: org.postgresql.Driver
+username: postgres
+pass: postgres
+update statement: INSERT INTO public.users(id, name, password) VALUES (${random},'${random}+${userName}', '${password}');
+-----------------------------------------------------------------------------------------------------------------
+jdbc assertion: puedo validar que tal campo y tal row tenga determinado valor.
+tengo que agregar un jdbc assertion (dentro de assertions).
+ir al jdbc request y en variables poner las columnas que va a devolver la query ej: id,name,password
+y en el response assertion en el campo: "jmeter variable name to use" poner el campo que quiero validar y que row (con guion bajo ej:_2) 
+entonces me quedaría algo asi: id_2 . Ahi voy a tar validando que el campo id tenga en el row 2 el valor que yo quiera validar
+-----------------------------------------------------------------------------------------------------------------
+
+ejecutar desde linea de comandos:
+desde gui consume mucho recursos y memoria. tambien si quiero ejecutar desde jenkins necesito ejecutar desde linea de comandos.
+ir a la line de comando e ir a la carpeta bin donde esta jmeter ej:
+cd C:\Users\admin\Downloads\apache-jmeter-5.2.1\apache-jmeter-5.2.1\bin
+
+sintaxis en windows:    jmeter -n -t
+sintaxis en linux  : sh jmeter -n -t
+
+-n : ejecutar jmeter en modo non gui mode
+-t : location of jmeter script
+-l : location of result file
+
+sh es para cuando estamos en mac o unix:
+
+ej windows: jmeter -n -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv             // 
+			jmeter -n -t -JusersCount=20 C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv
+			jmeter -n -jprotocol=https -jurl=www.tenisdemesaparatodos.com -jusersCount=1 -jrampUp=0 -jloopCount=1 -t C:\Automation\Jmeter\WebHttpRequest.jmx -l C:\Automation\Jmeter\results\WebHttpRequest.csv 
+			jmeter -n -Jprotocol=https -Jurl=www.tenisdemesaparatodos.com -JusersCount=100 -JrampUp=0 -JloopCount=1 -t C:\Automation\Jmeter\WebHttpRequest.jmx -l C:\Automation\Jmeter\results\WebHttpRequest
+-----------------------------------------------------------------------------------------------------------------
+resultado del test: en cada test voy a tener un resultado pero si tengo un listener le puedo decir que me lo guarde
+con determinado nombre ej: C:\Automation\Jmeter\results\summary.csv 
+si no existe el archivo, lo crea y le pone los datos de la prueba.
+si existe, lo apendea.
+
+-----------------------------------------------------------------------------------------------------------------
+funciones: es case sensitive y usa camelcase.
+syntax: ${__functionName}                     							 //funciones sin variable como parametro
+		${__functionName(var1,var2,..)}        							 //funcion con variable como parametro.
+		${__log("Hello world")}                							 //loguea lo que querramos
+		${__time(dd MM yyyy hh mm ss)}        							 //nos devuelve el time con formato
+		${__threadNum}                        							 //nos devuelve el numero de thread
+		${__intSum(2,3)}                      							 //suma 2 valores
+		${__RandomString(20,asdfghjklu123456789,mailFirstPart)  		 //genero un string random y lo guardo en una variable llamada : mailFirstPart
+		${__RandomDate(dd-MM-yyyy,01-01-2019,28-12-2025,,randomDate)}    // generao fecha random indicando fecha desde y hasta y lo guardo en variable : randomDate
+
+-----------------------------------------------------------------------------------------------------------------
+variables: solo se pueden referenciar dentro de un thread. no se lo puedo pasar por parametro a otro thread.
+${variableName}
+
+-----------------------------------------------------------------------------------------------------------------
+CSV Data set config: sirve para levantar data de un archivo. ejemplo de archivo csv : inputData.csv tiene los siguientes registros
+name
+1001
+1002
+1003
+
+dentro del data set csv config:
+en el campo filename le pongo la ruta y el archivo : C:/Users/admin/Desktop/Files/inputData.csv   (absoluta o relativa)
+en el campo variables names le puedo poner los nombres de las columnas : name  (o mas columnas separadas por comma)
+en el campo ignore first line: true   (en caso de que quiera ignorar la el primer registro del csv porque)
+listo en el request puedo usar los datos del csv de la sig manera : ${name}    // "name" es la variable o columna del csv
+
+-----------------------------------------------------------------------------------------------------------------
+Parameters: puedo definir parametros para poder sobreescribirlos cuando ejecute por linea de comandos.
+me genero un  user defined Variables y adentro pongo nombre de variable y al lado lo que valga con un valor por default si quiero  ej:
+usersCount            ${__P(usersCount,5)}
+rampUp                ${__P(rampUp,0)}
+loopCount             ${__P(loopCount,1)}
+
+ahora puedo ejecutar desde linea de comando con J mayùscula:
+jmeter -n -JusersCount=30 -JrampUp=0 -JloopCount=2 -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv
+

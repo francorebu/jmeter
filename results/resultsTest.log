@@ -1,0 +1,65 @@
+2020-03-30 15:42:31,840 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: Loading user properties from: user.properties
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: Loading system properties from: system.properties
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: Copyright (c) 1998-2019 The Apache Software Foundation
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: Version 5.2.1
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: java.version=1.8.0_231
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: os.name=Windows 10
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: os.arch=amd64
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: os.version=10.0
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: file.encoding=Cp1252
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: java.awt.headless=true
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: Max memory     =1073741824
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: Available Processors =4
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: Default Locale=English (EN)
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: JMeterHome=C:\Users\admin\Downloads\apache-jmeter-5.2.1\apache-jmeter-5.2.1
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: user.dir  =C:\Users\admin\Downloads\apache-jmeter-5.2.1\apache-jmeter-5.2.1\bin
+2020-03-30 15:42:31,872 INFO o.a.j.JMeter: PWD       =C:\Users\admin\Downloads\apache-jmeter-5.2.1\apache-jmeter-5.2.1\bin
+2020-03-30 15:42:36,497 INFO o.a.j.JMeter: IP: 192.168.56.1 Name: DESKTOP-R960KRP FullName: DESKTOP-R960KRP
+2020-03-30 15:42:36,512 INFO o.a.j.s.FileServer: Default base='C:\Users\admin\Downloads\apache-jmeter-5.2.1\apache-jmeter-5.2.1\bin'
+2020-03-30 15:42:36,512 INFO o.a.j.s.FileServer: Set new base='C:\Automation\Jmeter'
+2020-03-30 15:42:36,700 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2020-03-30 15:42:36,715 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2020-03-30 15:42:36,715 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2020-03-30 15:42:36,731 INFO o.a.j.s.SaveService: Loading file: C:\Automation\Jmeter\RestGet.jmx
+2020-03-30 15:42:36,778 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-30 15:42:36,778 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-30 15:42:36,778 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-30 15:42:36,778 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-30 15:42:36,778 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2020-03-30 15:42:36,778 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2020-03-30 15:42:36,809 INFO o.a.j.JMeter: Creating summariser <summary>
+2020-03-30 15:42:36,824 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2020-03-30 15:42:36,824 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2020-03-30 15:42:36,824 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2020-03-30 15:42:36,840 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2020-03-30 15:42:36,840 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2020-03-30 15:42:37,293 INFO o.a.j.JMeter: Running test (1585593757293)
+2020-03-30 15:42:37,340 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2020-03-30 15:42:37,340 INFO o.a.j.e.StandardJMeterEngine: Starting 2 threads for group Thread Group.
+2020-03-30 15:42:37,340 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2020-03-30 15:42:37,340 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=2 ramp-up=0 delayedStart=false
+2020-03-30 15:42:37,340 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2020-03-30 15:42:37,340 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2020-03-30 15:42:37,356 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2020-03-30 15:42:37,356 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-2
+2020-03-30 15:42:37,387 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = DESKTOP-R960KRP
+2020-03-30 15:42:37,403 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2020-03-30 15:42:37,403 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2020-03-30 15:42:37,403 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2020-03-30 15:42:37,403 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2020-03-30 15:42:37,403 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2020-03-30 15:42:37,824 INFO o.a.j.p.h.s.h.LazyLayeredConnectionSocketFactory: Setting up HTTPS TrustAll Socket Factory
+2020-03-30 15:42:37,824 INFO o.a.j.u.JsseSSLManager: Using default SSL protocol: TLS
+2020-03-30 15:42:37,824 INFO o.a.j.u.JsseSSLManager: SSL session context: per-thread
+2020-03-30 15:42:38,731 INFO o.a.j.u.SSLManager: JmeterKeyStore Location:  type JKS
+2020-03-30 15:42:38,731 INFO o.a.j.u.SSLManager: KeyStore created OK
+2020-03-30 15:42:38,731 WARN o.a.j.u.SSLManager: Keystore file not found, loading empty keystore
+2020-03-30 15:42:39,543 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2020-03-30 15:42:39,543 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-2
+2020-03-30 15:42:39,543 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-2
+2020-03-30 15:42:39,543 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2020-03-30 15:42:39,559 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2020-03-30 15:42:39,559 INFO o.a.j.r.Summariser: summary =      2 in 00:00:02 =    0.9/s Avg:  2027 Min:  2022 Max:  2032 Err:     0 (0.00%)
