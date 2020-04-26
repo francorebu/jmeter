@@ -12,59 +12,17 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-        <collectionProp name="Arguments.arguments">
-          <elementProp name="path" elementType="Argument">
-            <stringProp name="Argument.name">path</stringProp>
-            <stringProp name="Argument.value">${__P(path,/api)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="server" elementType="Argument">
-            <stringProp name="Argument.name">server</stringProp>
-            <stringProp name="Argument.value">${__P(server,reqres.in)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="usersCount" elementType="Argument">
-            <stringProp name="Argument.name">usersCount</stringProp>
-            <stringProp name="Argument.value">${__P(usersCount,1)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="rampUp" elementType="Argument">
-            <stringProp name="Argument.name">rampUp</stringProp>
-            <stringProp name="Argument.value">${__P(rampUp,0)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="loopCount" elementType="Argument">
-            <stringProp name="Argument.name">loopCount</stringProp>
-            <stringProp name="Argument.value">${__P(loopCount,1)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-        </collectionProp>
-      </Arguments>
-      <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${loopCount}</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${usersCount}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${rampUp}</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration">20</stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
-      </ThreadGroup>
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Test Fragment" enabled="false"/>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">${server}</stringProp>
+          <stringProp name="HTTPSampler.domain">reqres.in</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${path}/users?page=2</stringProp>
+          <stringProp name="HTTPSampler.path">/api/users/2</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -89,25 +47,59 @@
                 <message>true</message>
                 <threadName>true</threadName>
                 <dataType>true</dataType>
-                <encoding>true</encoding>
+                <encoding>false</encoding>
                 <assertions>true</assertions>
                 <subresults>true</subresults>
-                <responseData>true</responseData>
-                <samplerData>true</samplerData>
-                <xml>false</xml>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>true</xml>
                 <fieldNames>true</fieldNames>
-                <responseHeaders>true</responseHeaders>
-                <requestHeaders>true</requestHeaders>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
                 <responseDataOnError>false</responseDataOnError>
                 <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
                 <assertionsResultsToSave>0</assertionsResultsToSave>
                 <bytes>true</bytes>
                 <sentBytes>true</sentBytes>
                 <url>true</url>
-                <fileName>true</fileName>
-                <hostname>true</hostname>
                 <threadCounts>true</threadCounts>
-                <sampleCount>true</sampleCount>
+                <idleTime>true</idleTime>
+                <connectTime>true</connectTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+          <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>true</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <sentBytes>true</sentBytes>
+                <url>true</url>
+                <threadCounts>true</threadCounts>
                 <idleTime>true</idleTime>
                 <connectTime>true</connectTime>
               </value>
