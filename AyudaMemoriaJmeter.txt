@@ -111,6 +111,7 @@ sh es para cuando estamos en mac o unix:
 
 ej windows: jmeter -n -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv             // 
 			jmeter -n -t -JusersCount=20 C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv
+			jmeter -n -JusersCount=30 -JrampUp=0 -JloopCount=1 -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTesto001.csv
 			jmeter -n -jprotocol=https -jurl=www.tenisdemesaparatodos.com -jusersCount=1 -jrampUp=0 -jloopCount=1 -t C:\Automation\Jmeter\WebHttpRequest.jmx -l C:\Automation\Jmeter\results\WebHttpRequest.csv 
 			jmeter -n -Jprotocol=https -Jurl=www.tenisdemesaparatodos.com -JusersCount=100 -JrampUp=0 -JloopCount=1 -t C:\Automation\Jmeter\WebHttpRequest.jmx -l C:\Automation\Jmeter\results\WebHttpRequest
 -----------------------------------------------------------------------------------------------------------------
@@ -155,5 +156,21 @@ rampUp                ${__P(rampUp,0)}
 loopCount             ${__P(loopCount,1)}
 
 ahora puedo ejecutar desde linea de comando con J mayùscula:
-jmeter -n -JusersCount=30 -JrampUp=0 -JloopCount=2 -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv
+jmeter -n -JusersCount=30 -JrampUp=0 -JloopCount=1 -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv
+-----------------------------------------------------------------------------------------------------------------
+json extractor: sirve para extrae data de la response de un json.add post procesor-> json extractor.
+defino la variable de como lo voy a llamar en names of created variables ej: firstName
+abajo le pongo el json path expression ej : $.data[0].first_name.
+una buena web para aprender json path (jsons) es esta: https://goessner.net/articles/JsonPath/index.html#e2
+------------------------------------------------------------------------------------------------------------------
+enviar data de una response a otro request:
+ya teneiendo el json extractor , abajo me defino un beanshell sampler y le meto en la parte de script:
+import org.apache.jmeter.util.JMeterUtils;
+JMeterUtils.setProperty("NAME_Val", vars.get("firstName"));                          // guardo en NAME_Val  lo que devuelva en firstName
+luego puedo referenciar la variable NAME_Val asi : ${__property(NAME_Val)} en cualquier request
+
+-------------------------------------------------------------------------------------------------------------------
+levantar un jtl o csv (de salida) de una ejecucion realizada por linea de comando:
+se puede levantar un archivo .jtl o csv . hay q crear un listener y en browse poner la direcc de donde está el archivo y listo
+podemos ver el archivo mas lindo en un summary report por ejemplo.
 
