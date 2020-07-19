@@ -7,6 +7,27 @@ https://jmeter.apache.org/download_jmeter.cgi . un zipearlo y abrir el archivo j
 
 -------------------------------------------------------------------------------------------------------------------
 dentro de la carpeta bin, abrir el archivo jmeter.bat
+
+Thread users: es la cantidad de usuarios
+------------------------------------------------------------------------------------------------------------------
+ramp-up:      Es el tiempo que va a tomar para agregar todos los thread users. Referencia: https://dzone.com/articles/jmeter-ramp-up-the-ultimate-guide
+Escenario 1:
+10 thread users,  con 10 segundos de ramp-up, jmeter va a agregar      1  usuario  mas cada segundo.
+10 thread users,  con  5 segundos de ramp-up, jmeter va a agregar 	   2  usuarios mas cada segundo.
+10 thread users,  con  1 segundos de ramp-up, jmeter va a agregar los 10  usuarios en 1     segundo.
+
+Escenario 2: (la cantidad de usuarios se va incrementando)
+10 thread users,  ramp-up: 10 segundos y duration seconds 20, jmeter va a agregar  1  usuario  mas cada segundo hasta
+llegar a los 10 y a partir de ahí se va a mantener durante 10 segundos esos 10 usuarios.En total la prueba durará 20 segundos.
+
+escenario 3: (la cantidad de usuarios es la misma. todas al mismo tiempo.)
+10   thread users, ramp-up :0 , loop : 1 . Se van a disparar todos los requests al mismo tiempo.
+100  thread users, ramp-up :0 , loop : 1 . Se van a disparar todos los requests al mismo tiempo.
+1000 thread users, ramp-up :0 , loop : 1 . Se van a disparar todos los requests al mismo tiempo.
+
+ramp-up 0 : quiere decir que todos los threads users se envían todos al mismo tiempo. Misma decima o centesima de segundo.
+ramp-up 1 : quiere decir que todos los threads users se envian en menos de un segundo(osea tarda un poco mas que mandando rampUp =0).
+			  
 -------------------------------------------------------------------------------------------------------------------
 Listeners: 
 
@@ -14,7 +35,7 @@ Listeners:
 listener view results tree: (consume mucho recurso asique no conviene usarlo cuando le pegamos con muchos usuarios)
 loadtime:  		es el tiempo en ms que tarda responder (load time o sample time)
 connect time:   es  el tiempo en ms que tarda el request en llegar al server
-latency:        es el tiempo que tarda el primer byte de respuesta del lado del server 
+latency:        es el tiempo que tarda el primer byte de respuesta en llegar del server.
 size in bytes:
 sent in bytes:
 Headers size in bytes:
@@ -36,8 +57,8 @@ median  :   la menor mitad de los requests tardaron menos que ese tiempo, y la m
 90% line:   90% de los requests tardaron menos que ese tiempo en responder en milisegundos
 95% line:   95% de los requests tardaron menos que ese tiempo en responder en milisegundos
 99% line:   99% de los requests tardaron menos que ese tiempo en responder en milisegundos
-min: 	    es cuanto tardó el request mas rapido en responder
-throughput: es el numero de requests por segundo
+min: 	    es cuanto tardó el request mas rapido en responder (osea , el que menos tardó)
+throughput: es el numero de requests por segundo que se bancó el server con la configuración que le dimos.
 KB/sec:     son los kilobytes por segundo
 -------------------------------------------------------------------------------------------------------------------
 Listener graph results: ves en vivo el data, average,mediandeviation y throughput
@@ -95,7 +116,7 @@ y en el response assertion en el campo: "jmeter variable name to use" poner el c
 entonces me quedaría algo asi: id_2 . Ahi voy a tar validando que el campo id tenga en el row 2 el valor que yo quiera validar
 -----------------------------------------------------------------------------------------------------------------
 
-ejecutar desde linea de comandos:
+ejecutar desde linea de comandos: (lo comprobé yo que ejecutando por línea de comandos el average de respuesta promedio, tarda menos)
 desde gui consume mucho recursos y memoria. tambien si quiero ejecutar desde jenkins necesito ejecutar desde linea de comandos.
 ir a la line de comando e ir a la carpeta bin donde esta jmeter ej:
 cd C:\Users\admin\Downloads\apache-jmeter-5.2.1\apache-jmeter-5.2.1\bin
@@ -109,9 +130,9 @@ sintaxis en linux  : sh jmeter -n -t
 
 sh es para cuando estamos en mac o unix:
 
-ej windows: jmeter -n -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv             // 
+ej windows: jmeter -n -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest1000.csv             // 
 			jmeter -n -t -JusersCount=20 C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTest.csv
-			jmeter -n -JusersCount=30 -JrampUp=0 -JloopCount=1 -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTesto001.csv
+			jmeter -n -JusersCount=30 -JrampUp=0 -JloopCount=1 -t C:\Automation\Jmeter\RestGet.jmx -l C:\Automation\Jmeter\results\resultsTesto1001.csv
 			jmeter -n -jprotocol=https -jurl=www.tenisdemesaparatodos.com -jusersCount=1 -jrampUp=0 -jloopCount=1 -t C:\Automation\Jmeter\WebHttpRequest.jmx -l C:\Automation\Jmeter\results\WebHttpRequest.csv 
 			jmeter -n -Jprotocol=https -Jurl=www.tenisdemesaparatodos.com -JusersCount=100 -JrampUp=0 -JloopCount=1 -t C:\Automation\Jmeter\WebHttpRequest.jmx -l C:\Automation\Jmeter\results\WebHttpRequest
 -----------------------------------------------------------------------------------------------------------------
@@ -172,5 +193,55 @@ luego puedo referenciar la variable NAME_Val asi : ${__property(NAME_Val)} en cu
 -------------------------------------------------------------------------------------------------------------------
 levantar un jtl o csv (de salida) de una ejecucion realizada por linea de comando:
 se puede levantar un archivo .jtl o csv . hay q crear un listener y en browse poner la direcc de donde está el archivo y listo
-podemos ver el archivo mas lindo en un summary report por ejemplo.
+podemos ver el archivo mas lindo en un summary report o agregate report por ejemplo.
 
+--------------------------------------------------------------------------------------------------------------------
+Guardar reportes: puedo guardar reporter con fecha hora y mm ss para que se genere automaticamente cada vez que corra.
+Ej:
+C:\Automation\Jmeter\results\AgregateReport_${__time(yyyy-MM-dd-HH-mm-ss,)}.csv
+
+--------------------------------------------------------------------------------------------------------------------
+beanshell : es un lenguaje de scripting que se usa en jmeter, puede ejecutar lenguaje java, las variables pueden ser declaradas sin el tipo (loose type).
+Sirve para customizar el script de jmeter a nuestro antojo.
+-Beanshell sampler : tiene lista de variables  que podemos usar en el script: vars,
+-Beanshell pre procesor
+-branshee pos processor
+
+--------------------------------------------------------------------------------------------------------------------
+ejemplo de beanshell post procesor:
+var link;
+vars.put("link","www.google.com"); 	 // put www.google.com into link variable
+var x= vars.get("link");          		 // get value of a variable
+log.info("value of x is : " + x);        // print on the log
+
+var y = ctx.getThread().getThreadName(); // obtenemos el ThreadName
+log.info("thread name is : " + y);
+
+--------------------------------------------------------------------------------------------------------------------
+ejemplo de beanshell preprocesor:
+var rc = prev.getResponseCode();
+var rm = prev.getResponseMessage();
+
+log.info("********** RC is : ********** " + rc);
+log.info("********** RM is : ********** " + rm);
+
+if (!rc.equals("200")){
+		org.apache.jmeter.engine.StandardJMeterEngine.stopThread(Thread.currentThread().getName());
+}
+--------------------------------------------------------------------------------------------------------------------
+import from Curl: jmeter se puede importar la llamada desde jmeter -> tools -> import from curl
+le metemos el choclo del curl y ya nos genera la prueba . clickeamos en button create test Plan.
+
+--------------------------------------------------------------------------------------------------------------------
+Plugins Manager: hay custom plugins que te podes bajar (jars) que se pueden ver en la siguiente web: https://jmeter-plugins.org/
+ir hasta abajo de todo de la web a la izquierda y aparece "78 more plugins" (clickeamos ahi y vemos todos los plugins).
+hHay que dejar el plugin en el directorio donde se encuentra jmeter -> lib -> ext  y después restartear jmeter.
+
+Otra forma mas fácil: descargar jmeter plugin manager jar desde la web (https://jmeter-plugins.org/wiki/PluginsManager/)
+y agregarlo a jmeter -> lib -> ext. Entonces voy a esa web y me bajo el jar y lo pongo en la carpeta de jmeter ->lib ->ext
+Restartear jmeter.
+-----------------------------------------------------------------------------------------------------------------
+Stepping thread group (o jp@gc - ultima thread group): es un plugin piola para simular e ir subiendo la cantidad de usuarios en el tiempo.
+y despues ir decrementando esa cantidad de usuarios.
+ir a jmeter-> options y podemos ver plugins Manager window ->available plugins -> seleccionar -> jpgc - Standard set->
+clickear en "apply change and restant jmeter". restartea jmeter y ya se puede usar ese thread group que nos instalamos
